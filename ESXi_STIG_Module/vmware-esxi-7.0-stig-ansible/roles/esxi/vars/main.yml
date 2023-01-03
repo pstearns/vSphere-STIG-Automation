@@ -1,0 +1,20 @@
+var_vmware_config_file: '/etc/vmware/config'
+var_vmware_setting_file: '/etc/vmware/settings'
+var_sshd_config_file: '/etc/ssh/sshd_config'
+var_sshd_banner: /etc/issue
+
+# sshd variables
+var_sshd_hostbasedauth: 'no'
+var_sshd_ignorerhosts: 'yes'
+var_sshd_permitrootlogin: 'no'
+var_sshd_permitemptypasswords: 'no'
+var_sshd_permituserenvironment: 'no'
+var_sshd_strictmodes: 'yes'
+var_sshd_compression: 'no'
+var_sshd_gatewayports: 'no'
+var_sshd_x11forwarding: 'no'
+var_sshd_permittunnel: 'no'
+var_sshd_clientalivecountmax: 3
+var_sshd_clientaliveinterval: 200
+var_sshd_allowtcpforwarding: 'no'
+var_sshd_ciphers: 'aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr'

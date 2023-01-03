@@ -1,0 +1,295 @@
+---
+# Ansible Playbook for ESXi STIG Readiness
+
+############################################
+
+# Backup files that may be modified in case restoration is needed
+
+- name: Create time stamp
+  ansible.builtin.set_fact:
+    backup_timestamp: "{{ lookup('pipe','date +%Y-%m-%d-%H-%M-%S') }}"
+  tags:
+    - esxi
+  when:
+    - create_backups | bool
+
+- name: Backup files...if restoring be sure to restore permissions that original file had!!
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ item }}"
+    dest: "/tmp/ansible-backups-{{ backup_timestamp }}/"
+    mode: preserve
+  changed_when: false
+  ignore_errors: true
+  with_items:
+    - '{{ var_sshd_config_file }}'
+    - '{{ var_vmware_config_file }}'
+    - '{{ var_vmware_setting_file }}'
+  tags:
+    - esxi
+  when:
+    - create_backups | bool
+
+############################################
+
+- name: ESXI-70-000009 - The ESXi host SSH daemon must be configured with the DoD logon banner
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^Banner.*$'
+    line: Banner {{ var_sshd_banner }}
+    firstmatch: true
+  tags:
+    - ESXI-70-000009
+    - ssh
+  when:
+    - run_sshd_banner | bool
+
+############################################
+
+- name: ESXI-70-000012 - The ESXi host SSH daemon must ignore .rhosts files
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^IgnoreRhosts.*$'
+    line: IgnoreRhosts {{ var_sshd_ignorerhosts }}
+    firstmatch: true
+  tags:
+    - ESXI-70-000012
+    - ssh
+  when:
+    - run_sshd_ignorerhosts | bool
+
+############################################
+
+- name: ESXI-70-000013 - The ESXi host SSH daemon must not allow host-based authentication
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^HostbasedAuthentication.*$'
+    line: HostbasedAuthentication {{ var_sshd_hostbasedauth }}
+    firstmatch: true
+  tags:
+    - ESXI-70-000013
+    - ssh
+  when:
+    - run_sshd_hostbasedauth | bool
+
+############################################
+
+- name: ESXI-70-000014 - The ESXi host SSH daemon must not permit root logins
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^PermitRootLogin.*$'
+    line: PermitRootLogin {{ var_sshd_permitrootlogin }}
+    firstmatch: true
+  tags:
+    - ESXI-70-000014
+    - ssh
+  when:
+    - run_sshd_permitrootlogin | bool
+
+############################################
+
+- name: ESXI-70-000015 - The ESXi host SSH daemon must not allow authentication using an empty password
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^PermitEmptyPasswords.*$'
+    line: PermitEmptyPasswords {{ var_sshd_permitemptypasswords }}
+  tags:
+    - ESXI-70-000015
+    - sshd
+  when:
+    - run_sshd_permitemptypasswords | bool
+ 
+############################################
+
+- name: ESXI-70-000016 - The ESXi host SSH daemon must not permit user environment settings
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^PermitUserEnvironment.*$'
+    line: PermitUserEnvironment {{ var_sshd_permituserenvironment }}
+  tags:
+    - ESXI-70-000016
+    - sshd
+  when:
+    - run_sshd_permituserenvironment | bool
+
+############################################
+
+- name: ESXI-70-000020 - The ESXi host SSH daemon must perform strict mode checking of home directory configuration files
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^StrictModes.*$'
+    line: StrictModes {{ var_sshd_strictmodes }}
+  tags:
+    - ESXI-70-000020
+    - sshd
+  when:
+    - run_sshd_strictmodes | bool
+
+############################################
+
+- name: ESXI-70-000021 - The ESXi host SSH daemon must not allow compression or must only allow compression after successful authentication
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^Compression.*$'
+    line: Compression {{ var_sshd_compression }}
+  tags:
+    - ESXI-70-000021
+    - sshd
+  when:
+    - run_sshd_compression | bool
+
+############################################
+
+- name: ESXI-70-000022 - The ESXi host SSH daemon must be configured to not allow gateway ports
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^GatewayPorts.*$'
+    line: GatewayPorts {{ var_sshd_gatewayports }}
+  tags:
+    - ESXI-70-000022
+    - sshd
+  when:
+    - run_sshd_gatewayports | bool
+
+############################################
+
+- name: ESXI-70-000023 - The ESXi host SSH daemon must be configured to not allow X11 forwarding
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^X11Forwarding.*$'
+    line: X11Forwarding {{ var_sshd_x11forwarding }}
+  tags:
+    - ESXI-70-000023
+    - sshd
+  when:
+    - run_sshd_x11forwarding | bool
+
+############################################
+
+- name: ESXI-70-000025 - The ESXi host SSH daemon must not permit tunnels
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^PermitTunnel.*$'
+    line: PermitTunnel {{ var_sshd_permittunnel }}
+  tags:
+    - ESXI-70-000025
+    - sshd
+  when:
+    - run_sshd_permittunnel | bool
+
+############################################
+
+- name: ESXI-70-000026 - The ESXi host SSH daemon must set a timeout count on idle sessions
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^ClientAliveCountMax.*$'
+    line: ClientAliveCountMax {{ var_sshd_clientalivecountmax }}
+  tags:
+    - ESXI-70-000026
+    - sshd
+  when:
+    - run_sshd_clientalivecountmax | bool
+
+############################################
+
+- name: ESXI-70-000027 - The ESXi host SSH daemon must set a timeout interval on idle sessions
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^ClientAliveCountMax.*$'
+    line: ClientAliveCountMax {{ var_sshd_clientaliveinterval }}
+  tags:
+    - ESXI-70-000027
+    - sshd
+  when:
+    - run_sshd_clientaliveinterval | bool
+
+############################################
+
+- name: ESXI-70-000076 - The ESXi host must enable Secure Boot. Part 1 of 2
+  ansible.builtin.shell:
+    cmd: /usr/lib/vmware/secureboot/bin/secureBoot.py -s
+  args:
+    executable: /bin/sh
+  register: secure_boot_status
+  tags:
+    - ESXI-70-000076
+  when:
+    - run_enable_secure_boot | bool
+
+- name: ESXI-70-000076 - The ESXi host must enable Secure Boot. Part 2 of 2
+  ansible.builtin.shell:
+    cmd: /usr/lib/vmware/secureboot/bin/secureBoot.py -c
+  args:
+    executable: /bin/sh
+  register: secure_boot_status
+  tags:
+    - ESXI-70-000076
+  when:
+    - run_enable_secure_boot | bool
+    - secure_boot_status.stdout is search("Disabled")
+
+############################################
+
+- name: ESXI-70-000082 - The ESXi host SSH daemon must disable port forwarding.
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^AllowTcpForwarding.*$'
+    line: AllowTcpForwarding {{ var_sshd_allowtcpforwarding }}
+  tags:
+    - ESXI-70-000082
+    - sshd
+  when:
+    - run_sshd_allowtcpforwarding | bool
+
+############################################
+
+- name: ESXI-70-000092 - The ESXi host must not be configured to override virtual machine configurations
+  ansible.builtin.shell:
+    cmd: echo -n >/etc/vmware/settings
+  args:
+    executable: /bin/sh
+  tags:
+    - ESXI-70-000092
+  when:
+    - run_overridevmconfig | bool
+
+############################################
+
+- name: ESXI-70-000093 - The ESXi host must not be configured to override virtual machine logger settings
+  ansible.builtin.lineinfile:
+    path: /etc/vmware/config
+    state: absent
+    regex: (?i)^vmx.*\.log.*$
+  tags:
+    - ESXI-70-000093
+  when:
+    - run_overridevmlogger | bool
+
+############################################
+
+- name: ESXI-70-000274 - The ESXi host SSH daemon must be configured to only use FIPS 140-2 validated ciphers.
+  ansible.builtin.lineinfile:
+    path: '{{ var_sshd_config_file }}'
+    state: present
+    regexp: '^Ciphers.*$'
+    line: Ciphers {{ var_sshd_ciphers }}
+    firstmatch: true
+  tags:
+    - ESXI-70-000274
+    - sshd
+  when:
+    - run_sshd_ciphers | bool

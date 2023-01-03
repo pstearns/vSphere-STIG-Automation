@@ -1,0 +1,23 @@
+---
+# Turn specific controls on/off by setting the value to true or false
+# Create backups of files?
+create_backups: true
+
+run_sshd_banner: true                   # ESX_70_000009
+run_sshd_ignorerhosts: true             # ESX_70_000012
+run_sshd_hostbasedauth: true            # ESX_70_000013
+run_sshd_permitrootlogin: true          # ESX_70_000014
+run_sshd_permitemptypasswords: true     # ESX_70_000015
+run_sshd_permituserenvironment: true    # ESX_70_000016
+run_sshd_strictmodes: true              # ESX_70_000020
+run_sshd_compression: true              # ESX_70_000021
+run_sshd_gatewayports: true             # ESX_70_000022
+run_sshd_x11forwarding: true            # ESX_70_000023
+run_sshd_permittunnel: true             # ESX_70_000025
+run_sshd_clientalivecountmax: true      # ESX_70_000026
+run_sshd_clientaliveinterval: true      # ESX_70_000027
+run_enable_secure_boot: true            # ESX_70_000076
+run_sshd_allowtcpforwarding: true       # ESX_70_000082
+run_overridevmconfig: true              # ESX_70_000092
+run_overridevmlogger: true              # ESX_70_000093
+run_sshd_ciphers: true                  # ESX_70_000274
