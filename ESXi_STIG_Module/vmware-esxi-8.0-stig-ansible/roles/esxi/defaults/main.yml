@@ -1,0 +1,7 @@
+---
+# Turn specific controls on/off by setting the value to true or false
+# Create backups of files?
+create_backups: true
+
+run_overridevmconfig: true              # ESXI-80-000236
+run_overridevmlogger: true              # ESXI-80-000237

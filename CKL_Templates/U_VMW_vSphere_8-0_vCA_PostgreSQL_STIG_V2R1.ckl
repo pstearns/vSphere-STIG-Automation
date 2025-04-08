@@ -1,0 +1,2752 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DISA STIG Viewer :: 2.18-->
+<CHECKLIST>
+	<ASSET>
+		<ROLE>None</ROLE>
+		<ASSET_TYPE>Computing</ASSET_TYPE>
+		<MARKING>CUI</MARKING>
+		<HOST_NAME></HOST_NAME>
+		<HOST_IP></HOST_IP>
+		<HOST_MAC></HOST_MAC>
+		<HOST_FQDN></HOST_FQDN>
+		<TARGET_COMMENT></TARGET_COMMENT>
+		<TECH_AREA></TECH_AREA>
+		<TARGET_KEY>5570</TARGET_KEY>
+		<WEB_OR_DATABASE>false</WEB_OR_DATABASE>
+		<WEB_DB_SITE></WEB_DB_SITE>
+		<WEB_DB_INSTANCE></WEB_DB_INSTANCE>
+	</ASSET>
+	<STIGS>
+		<iSTIG>
+			<STIG_INFO>
+				<SI_DATA>
+					<SID_NAME>version</SID_NAME>
+					<SID_DATA>2</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>classification</SID_NAME>
+					<SID_DATA>UNCLASSIFIED</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>customname</SID_NAME>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>stigid</SID_NAME>
+					<SID_DATA>VMW_vSphere_8-0_VCSA_PostgreSQL_STIG</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>description</SID_NAME>
+					<SID_DATA>This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>filename</SID_NAME>
+					<SID_DATA>U_VMW_vSphere_8-0_VCSA_PostgreSQL_STIG_V2R1_Manual-xccdf.xml</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>releaseinfo</SID_NAME>
+					<SID_DATA>Release: 1 Benchmark Date: 01 Aug 2024</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>title</SID_NAME>
+					<SID_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>uuid</SID_NAME>
+					<SID_DATA>fc76c1c9-ceca-4aec-b3a5-511bdec054cf</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>notice</SID_NAME>
+					<SID_DATA>terms-of-use</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>source</SID_NAME>
+					<SID_DATA>STIG.DOD.MIL</SID_DATA>
+				</SI_DATA>
+			</STIG_INFO>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259166</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000001-DB-000031</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259166r960735_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000001</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must limit the number of concurrent sessions.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Database management includes the ability to control the number of users and user sessions utilizing a database management system (DBMS). Unlimited concurrent connections to the DBMS could allow a successful denial-of-service (DoS) attack by exhausting connection resources, and a system can also fail or be degraded by an overload of legitimate users. Limiting the number of concurrent sessions per user is helpful in reducing these risks.
+
+VMware Postgres as deployed on the vCenter Service Appliance (VCSA) comes preconfigured with a "max_connections" limit that is appropriate for all tested, supported scenarios. The out-of-the-box configuration is dynamic, based on a lower limit plus allowances for the resources assigned to VCSA and the deployment size. However, this number will always be between 100 and 1000 (inclusive).</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW max_connections;"
+
+If the returned number is not greater than or equal to 100 and less than or equal to 1000, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# vmon-cli --restart vmware-vpostgres
+
+Note: Restarting the service runs the "pg_tuning" script that will configure "max_connections" to the appropriate value based on the allocated memory for vCenter.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000054</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259167</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000089-DB-000064</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259167r960879_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000005</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must enable "pgaudit" to provide audit record generation capabilities.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Without the capability to generate audit records, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
+
+Audit records can be generated from various components within the database management system (DBMS) (e.g., process, module). Certain specific application functionalities may be audited as well. The list of audited events is the set of events for which audits are to be generated. This set of events is typically a subset of the list of all events for which the system is capable of generating audit records.
+
+DOD has defined the list of events for which the DBMS will provide an audit record generation capability as the following:
+
+(i) Successful and unsuccessful attempts to access, modify, or delete privileges, security objects, security levels, or categories of information (e.g., classification levels);
+
+(ii) Access actions, such as successful and unsuccessful logon attempts, privileged activities, or other system-level access, starting and ending time for user access to the system, concurrent logons from different workstations, successful and unsuccessful accesses to objects, all program initiations, and all direct access to the information system; and
+
+(iii) All account creation, modification, disabling, and termination actions.
+
+Organizations may define additional events requiring continuous or ad hoc auditing.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW shared_preload_libraries;"
+
+Example result:
+
+health_status_worker,pg_stat_statements,pgaudit
+
+If the output from the command does not include pgaudit, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000169</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259168</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000090-DB-000065</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259168r960882_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000006</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service configuration files must not be accessible by unauthorized users.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Without the capability to restrict which roles and individuals can select which events are audited, unauthorized personnel may be able to prevent or interfere with the auditing of critical events.
+
+Suppression of auditing could permit an adversary to evade detection.
+
+Misconfigured audits can degrade the system's performance by overwhelming the audit log. Misconfigured audits may also make it more difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
+
+Satisfies: SRG-APP-000090-DB-000065, SRG-APP-000121-DB-000202, SRG-APP-000122-DB-000203, SRG-APP-000123-DB-000204, SRG-APP-000380-DB-000360</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# find /storage/db/vpostgres/*conf* -xdev -type f -a '(' -not -perm 600 -o -not -user vpostgres -o -not -group vpgmongrp ')' -exec ls -ld {} \;
+
+If any files are returned, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following commands:
+
+# chmod 600 &lt;file&gt;
+# chown vpostgres:vpgmongrp &lt;file&gt;
+
+Note: Replace &lt;file&gt; with the file that has incorrect permissions.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000171</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001493</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001494</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001495</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001813</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259169</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000091-DB-000066</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259169r960885_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000007</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must generate audit records.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Under some circumstances, it may be useful to monitor who/what is reading privilege/permission/role information. Therefore, it must be possible to configure auditing to do this. Database management systems (DBMS) typically make such information available through views or functions.
+
+This requirement addresses explicit requests for privilege/permission/role membership information. It does not refer to the implicit retrieval of privileges/permissions/role memberships that PostgreSQL continually performs to determine if any and every action on the database is permitted.
+
+Satisfies: SRG-APP-000091-DB-000066, SRG-APP-000091-DB-000325, SRG-APP-000492-DB-000332, SRG-APP-000492-DB-000333, SRG-APP-000495-DB-000326, SRG-APP-000495-DB-000327, SRG-APP-000495-DB-000328, SRG-APP-000495-DB-000329, SRG-APP-000496-DB-000334, SRG-APP-000496-DB-000335, SRG-APP-000499-DB-000330, SRG-APP-000499-DB-000331, SRG-APP-000501-DB-000336, SRG-APP-000501-DB-000337, SRG-APP-000504-DB-000354, SRG-APP-000504-DB-000355, SRG-APP-000507-DB-000356, SRG-APP-000507-DB-000357</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following commands:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW pgaudit.log_catalog;"
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW pgaudit.log;"
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW pgaudit.log_parameter;"
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW pgaudit.log_statement_once;"
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW pgaudit.log_level;"
+
+If "pgaudit.log_catalog" is not set to "on", this is a finding.
+
+If "pgaudit.log" is not set to "all, -misc", this is a finding.
+
+If "pgaudit.log_parameter" is not set to "on", this is a finding.
+
+If "pgaudit.log_statement_once" is not set to "off", this is a finding.
+
+If "pgaudit.log_level" is not set to "log", this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000172</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259170</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000092-DB-000208</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259170r960888_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000009</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must initiate session auditing upon startup.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Session auditing is for use when a user's activities are under investigation. To be sure of capturing all activity during those periods when session auditing is in use, it needs to be in operation for the whole time the database management system (DBMS) is running.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW log_destination;"
+
+Example result:
+
+stderr
+
+If "log_destination" is not set to "stderr" or "syslog", this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001464</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259171</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000095-DB-000039</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259171r960891_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000010</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must produce logs containing sufficient information to establish what type of events occurred.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Information system auditing capability is critical for accurate forensic analysis. Without establishing what type of event occurred, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
+
+Audit record content that may be necessary to satisfy the requirement of this policy includes, for example, time stamps, user/process identifiers, event descriptions, success/fail indications, filenames involved, and access control or flow control rules invoked.
+
+Associating event types with detected events in the application and audit logs provides a means of investigating an attack; recognizing resource utilization or capacity thresholds; or identifying an improperly configured application.
+
+Database software is capable of a range of actions on data stored within the database. It is important, for accurate forensic analysis, to know exactly what actions were performed. This requires specific information regarding the event type an audit record is referring to. If event type information is not recorded and stored with the audit record, the record itself is of very limited use.
+
+Satisfies: SRG-APP-000095-DB-000039, SRG-APP-000096-DB-000040, SRG-APP-000097-DB-000041, SRG-APP-000098-DB-000042, SRG-APP-000099-DB-000043, SRG-APP-000100-DB-000201, SRG-APP-000101-DB-000044, SRG-APP-000375-DB-000323</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW log_line_prefix;"
+
+Expected result:
+
+%m %c %x %d %u %r %p %l
+
+If the output does not include each option in the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000130</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000131</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000132</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000133</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000134</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000135</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001487</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001889</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259172</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000118-DB-000059</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259172r960930_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000020</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must be configured to protect log files from unauthorized access.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>If audit data were to become compromised, then competent forensic analysis and discovery of the true source of potentially malicious system activity is difficult, if not impossible, to achieve. In addition, access to audit records provides information an attacker could potentially use to his or her advantage.
+
+To ensure the veracity of audit data, the information system and/or the application must protect audit information from any and all unauthorized access. This includes read, write, copy, etc.
+
+Satisfies: SRG-APP-000118-DB-000059, SRG-APP-000119-DB-000060, SRG-APP-000120-DB-000061</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Verify the default log file permissions and permissions on existing log files.
+
+At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW log_file_mode;"
+
+Expected result:
+
+0600
+
+If "log_file_mode" is not set to "0600", this is a finding.
+
+At the command prompt, run the following command:
+
+# find /var/log/vmware/vpostgres/* -xdev -type f -a '(' -not -perm 600 -o -not -user vpostgres -o -not -group vpgmongrp ')' -exec ls -ld {} \;
+
+If any files are returned, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres
+
+At the command prompt, run the following commands:
+
+# chmod 600 &lt;file&gt;
+# chown vpostgres:vpgmongrp &lt;file&gt;
+
+Note: Replace &lt;file&gt; with the file that has incorrect permissions.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000162</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000163</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000164</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259173</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000141-DB-000091</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259173r960963_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000032</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must not load unused database components, software, and database objects.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Information systems are capable of providing a wide variety of functions and services. Some of the functions and services, provided by default, may not be necessary to support essential organizational operations (e.g., key missions, functions).
+
+It is detrimental for software products to provide, or install by default, functionality exceeding requirements or mission objectives.
+
+Database management systems (DBMS) must adhere to the principles of least functionality by providing only essential capabilities.
+
+Satisfies: SRG-APP-000141-DB-000091, SRG-APP-000141-DB-000093</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "select * from pg_extension where extname != 'plpgsql'"
+
+If any extensions are output, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+$ /opt/vmware/vpostgres/current/bin/psql -U postgres -c  "DROP EXTENSION &lt;extension name&gt;"
+
+Note: It is recommended that plpgsql not be removed.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000381</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259174</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000142-DB-000094</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259174r960966_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000035</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must be configured to use an authorized port.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>In order to prevent unauthorized connection of devices, unauthorized transfer of information, or unauthorized tunneling (i.e., embedding of data types within data types), organizations must disable or restrict unused or unnecessary physical and logical ports/protocols/services on information systems.
+
+Applications are capable of providing a wide variety of functions and services. Some of the functions and services provided by default may not be necessary to support essential organizational operations. Additionally, it is sometimes convenient to provide multiple services from a single component (e.g., email and web services); however, doing so increases risk over limiting the services provided by any one component.
+
+To support the requirements and principles of least functionality, the application must support the organizational requirements providing only essential capabilities and limiting the use of ports, protocols, and/or services to only those required, authorized, and approved to conduct official business or to address authorized quality of life issues.
+
+Database Management Systems using ports, protocols, and services deemed unsafe are open to attack through those ports, protocols, and services. This can allow unauthorized access to the database and through the database to other components of the information system.
+
+Satisfies: SRG-APP-000142-DB-000094, SRG-APP-000383-DB-000364</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+$ /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW port;"
+
+Expected result:
+
+5432
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000382</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001762</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259175</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000148-DB-000103</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259175r960969_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000036</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must require authentication on all connections.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>To assure accountability and prevent unauthenticated access, organizational users must be identified and authenticated to prevent potential misuse and compromise of the system.
+
+Organizational users include organizational employees or individuals the organization deems to have equivalent status of employees (e.g., contractors). Organizational users (and any processes acting on behalf of users) must be uniquely identified and authenticated for all accesses, except the following:
+
+(i) Accesses explicitly identified and documented by the organization. Organizations document specific user actions that can be performed on the information system without identification or authentication; and
+(ii) Accesses that occur through authorized use of group authenticators without individual authentication. Organizations may require unique identification of individuals using shared accounts, for detailed accountability of individual activity.
+
+Satisfies: SRG-APP-000148-DB-000103, SRG-APP-000172-DB-000075</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# grep -v "^#" /storage/db/vpostgres/pg_hba.conf |grep '\S'
+
+If any lines are returned contain "trust" or "password" as an auth-method, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Navigate to and open:
+
+/storage/db/vpostgres/pg_hba.conf
+
+Find and update any line that has a method of "trust" or "password" in the far-right column.
+
+A correct, typical line will look like the below:
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+local       VCDB               vpxd                                            peer map=vcdb
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000197</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000764</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259176</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>high</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000171-DB-000074</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259176r1003664_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000038</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must encrypt passwords for user authentication.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The DOD standard for authentication is DOD-approved PKI certificates.
+
+Authentication based on User ID and Password may be used only when it is not possible to employ a PKI certificate and requires AO approval.
+
+In such cases, database passwords stored in clear text, using reversible encryption, or using unsalted hashes would be vulnerable to unauthorized disclosure. Database passwords must always be in the form of one-way, salted hashes when stored internally or externally to the database management system (DBMS).</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+$ /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW password_encryption;"
+
+Expected result:
+
+scram-sha-256
+
+If the output does not match the expected result, this is a finding.
+
+Note: Prior to Update 2, "md5" is the expected result.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-004062</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259179</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000226-DB-000147</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259179r961125_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000051</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must write log entries to disk prior to returning operation success or failure.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Failure to a known secure state helps prevent a loss of confidentiality, integrity, or availability in the event of a failure of the information system or a component of the system. Preserving system state information helps to facilitate system restart and return to the operational mode of the organization with less disruption of mission/business processes.
+
+Aggregating log writes saves on performance but leaves a window for log data loss. The logging system inside PostgreSQL is capable of writing logs to disk, fully and completely before the associated operation is returned to the client. This ensures that database activity is always captured, even in the event of a system crash during or immediately after a given operation.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SELECT name,setting FROM pg_settings WHERE name IN ('fsync','full_page_writes','synchronous_commit');"
+
+Expected result:
+
+fsync              | on
+full_page_writes   | on
+synchronous_commit | on
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001665</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259180</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000266-DB-000162</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259180r961167_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000060</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must provide nonprivileged users with minimal error information.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Any DBMS or associated application providing too much information in error messages on the screen or printout risks compromising the data and security of the system. The structure and content of error messages need to contain the minimal amount of information.
+
+Databases can inadvertently provide a wealth of information to an attacker through improperly handled error messages. In addition to sensitive business or personal information, database errors can provide host names, IP addresses, usernames, and other system information not required for troubleshooting but very useful to someone targeting the system.
+
+Satisfies: SRG-APP-000266-DB-000162, SRG-APP-000267-DB-000163</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW client_min_messages;"
+
+Expected result:
+
+error
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001312</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001314</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259181</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000356-DB-000314</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259181r1003665_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000070</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must have log collection enabled.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Without the ability to centrally manage the content captured in the audit records, identification, troubleshooting, and correlation of suspicious behavior would be difficult and could lead to a delayed or incomplete analysis of an ongoing attack.
+
+The content captured in audit records must be managed from a central location (necessitating automation). Centralized management of audit records and logs provides for efficiency in maintenance and management of records, as well as the backup and archiving of those records.
+
+Satisfies: SRG-APP-000356-DB-000314, SRG-APP-000381-DB-000361</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW logging_collector;"
+
+Expected result:
+
+on
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-003938</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259182</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000374-DB-000322</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259182r961443_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000075</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must use Coordinated Universal Time (UTC) for log timestamps.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>If time stamps are not consistently applied and there is no common time reference, it is difficult to perform forensic analysis.
+
+Time stamps generated by PostgreSQL must include date and time. Time is commonly expressed in UTC, a modern continuation of Greenwich Mean Time (GMT), or local time with an offset from UTC.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW log_timezone;"
+
+Expected result:
+
+UTC
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001890</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259183</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000503-DB-000350</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259183r961824_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000110</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must log all connection attempts.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>For completeness of forensic analysis, it is necessary to track successful and failed attempts to log on to PostgreSQL. Setting "log_connections" to "on" will cause each attempted connection to the server to be logged, as well as successful completion of client authentication.
+
+Satisfies: SRG-APP-000503-DB-000350, SRG-APP-000503-DB-000351, SRG-APP-000506-DB-000353, SRG-APP-000508-DB-000358</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW log_connections;"
+
+Expected result:
+
+on
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000172</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259184</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000505-DB-000352</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259184r961830_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000114</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must log all client disconnections.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Disconnection may be initiated by the user or forced by the system (as in a timeout) or result from a system or network failure. To the greatest extent possible, all disconnections must be logged.
+
+For completeness of forensic analysis, it is necessary to know how long a user's (or other principal's) connection to PostgreSQL lasts. This can be achieved by recording disconnections, in addition to logons/connections, in the audit logs.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# /opt/vmware/vpostgres/current/bin/psql -U postgres -A -t -c "SHOW log_disconnections;"
+
+Expected result:
+
+on
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>A script is included with vCenter to generate a PostgreSQL STIG configuration.
+
+At the command prompt, run the following commands:
+
+# chmod +x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+# /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py --action stig_enable --pg-data-dir /storage/db/vpostgres
+# chmod -x /opt/vmware/vpostgres/current/bin/vmw_vpg_config/vmw_vpg_config.py
+
+Restart the PostgreSQL service by running the following command:
+
+# vmon-cli --restart vmware-vpostgres</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000172</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259185</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000515-DB-000318</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259185r961860_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCPG-80-000122</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter PostgreSQL service must off-load audit data to a separate log management facility.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Information stored in one location is vulnerable to accidental or incidental deletion or alteration.
+
+Off-loading is a common process in information systems with limited audit storage capacity.
+
+The database management system (DBMS) may write audit records to database tables, to files in the file system, to other kinds of local repository, or directly to a centralized log management system. Whatever the method used, it must be compatible with off-loading the records to the centralized system.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>By default there is a vmware-services-vmware-vpostgres.conf rsyslog and vmware-services-vmware-postgres-archiver.conf configuration file that includes the service logs when syslog is configured on vCenter but it must be verified.
+
+At the command prompt, run the following command:
+
+# cat /etc/vmware-syslog/vmware-services-vmware-vpostgres.conf
+
+Expected result:
+
+# vmware-vpostgres first logs stdout, before loading configuration
+input(type="imfile"
+      File="/var/log/vmware/vpostgres/serverlog.stdout"
+      Tag="vpostgres-first"
+      Severity="info"
+      Facility="local0")
+# vmware-vpostgres first logs stderr, before loading configuration
+input(type="imfile"
+      File="/var/log/vmware/vpostgres/serverlog.stderr"
+      Tag="vpostgres-first"
+      Severity="info"
+      Facility="local0")
+# vmware-vpostgres logs
+input(type="imfile"
+      File="/var/log/vmware/vpostgres/postgresql-*.log"
+      Tag="vpostgres"
+      Severity="info"
+      Facility="local0")
+
+If the output does not match the expected result, this is a finding.
+
+At the command prompt, run the following command:
+
+# cat /etc/vmware-syslog/vmware-services-vmware-postgres-archiver.conf
+
+Expected result:
+
+# vmware-postgres-archiver stdout log
+input(type="imfile"
+      File="/var/log/vmware/vpostgres/pg_archiver.log.stdout"
+      Tag="postgres-archiver"
+      Severity="info"
+      Facility="local0")
+# vmware-postgres-archiver stderr log
+input(type="imfile"
+      File="/var/log/vmware/vpostgres/pg_archiver.log.stderr"
+      Tag="postgres-archiver"
+      Severity="info"
+      Facility="local0")
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Navigate to and open:
+
+/etc/vmware-syslog/vmware-services-vmware-vpostgres.conf
+
+Create the file if it does not exist.
+
+Set the contents of the file as follows:
+
+# vmware-vpostgres first logs stdout, before loading configuration
+input(type="imfile"
+      File="/var/log/vmware/vpostgres/serverlog.stdout"
+      Tag="vpostgres-first"
+      Severity="info"
+      Facility="local0")
+# vmware-vpostgres first logs stderr, before loading configuration
+input(type="imfile"
+      File="/var/log/vmware/vpostgres/serverlog.stderr"
+      Tag="vpostgres-first"
+      Severity="info"
+      Facility="local0")
+# vmware-vpostgres logs
+input(type="imfile"
+      File="/var/log/vmware/vpostgres/postgresql-*.log"
+      Tag="vpostgres"
+      Severity="info"
+      Facility="local0")
+
+Navigate to and open:
+
+/etc/vmware-syslog/vmware-services-vmware-postgres-archiver.conf
+
+Create the file if it does not exist.
+
+Set the contents of the file as follows:
+
+# vmware-postgres-archiver stdout log
+input(type="imfile"
+      File="/var/log/vmware/vpostgres/pg_archiver.log.stdout"
+      Tag="postgres-archiver"
+      Severity="info"
+      Facility="local0")
+# vmware-postgres-archiver stderr log
+input(type="imfile"
+      File="/var/log/vmware/vpostgres/pg_archiver.log.stderr"
+      Tag="postgres-archiver"
+      Severity="info"
+      Facility="local0")</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance PostgreSQL Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5570</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>d6189a1d-2f04-4e0a-b9be-58395ba6776e</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001851</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+		</iSTIG>
+	</STIGS>
+</CHECKLIST>

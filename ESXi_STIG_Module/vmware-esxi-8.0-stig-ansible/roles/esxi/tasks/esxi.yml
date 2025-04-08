@@ -1,0 +1,56 @@
+---
+# Ansible Playbook for ESXi STIG Readiness
+
+############################################
+
+# Backup files that may be modified in case restoration is needed
+
+- name: Create time stamp
+  ansible.builtin.set_fact:
+    backup_timestamp: "{{ lookup('pipe','date +%Y-%m-%d-%H-%M-%S') }}"
+  tags:
+    - esxi
+  when:
+    - create_backups | bool
+
+- name: Backup files...if restoring be sure to restore permissions that original file had!!
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ item }}"
+    dest: "/tmp/ansible-backups-{{ backup_timestamp }}/"
+    mode: preserve
+  changed_when: false
+  ignore_errors: true
+  with_items:
+    - '{{ var_vmware_config_file }}'
+    - '{{ var_vmware_setting_file }}'
+  tags:
+    - esxi
+  when:
+    - create_backups | bool
+
+############################################
+
+- name: ESXI-80-000236 - The ESXi host must not be configured to override virtual machine configurations
+  ansible.builtin.shell:
+    cmd: echo -n >/etc/vmware/settings
+  args:
+    executable: /bin/sh
+  tags:
+    - ESXI-80-000236
+  when:
+    - run_overridevmconfig | bool
+
+############################################
+
+- name: ESXI-80-000237 - The ESXi host must not be configured to override virtual machine logger settings
+  ansible.builtin.lineinfile:
+    path: /etc/vmware/config
+    state: absent
+    regex: (?i)^vmx.*\.log.*$
+  tags:
+    - ESXI-80-000237
+  when:
+    - run_overridevmlogger | bool
+
+############################################

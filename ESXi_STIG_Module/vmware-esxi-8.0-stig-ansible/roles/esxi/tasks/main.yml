@@ -1,0 +1,4 @@
+---
+# tasks file for esxi
+- include: esxi.yml
+  tags: ssh, esxi

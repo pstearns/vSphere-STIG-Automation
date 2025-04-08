@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DISA STIG Viewer :: 2.18-->
+<CHECKLIST>
+	<ASSET>
+		<ROLE>None</ROLE>
+		<ASSET_TYPE>Computing</ASSET_TYPE>
+		<MARKING>CUI</MARKING>
+		<HOST_NAME></HOST_NAME>
+		<HOST_IP></HOST_IP>
+		<HOST_MAC></HOST_MAC>
+		<HOST_FQDN></HOST_FQDN>
+		<TARGET_COMMENT></TARGET_COMMENT>
+		<TECH_AREA></TECH_AREA>
+		<TARGET_KEY>5572</TARGET_KEY>
+		<WEB_OR_DATABASE>false</WEB_OR_DATABASE>
+		<WEB_DB_SITE></WEB_DB_SITE>
+		<WEB_DB_INSTANCE></WEB_DB_INSTANCE>
+	</ASSET>
+	<STIGS>
+		<iSTIG>
+			<STIG_INFO>
+				<SI_DATA>
+					<SID_NAME>version</SID_NAME>
+					<SID_DATA>2</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>classification</SID_NAME>
+					<SID_DATA>UNCLASSIFIED</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>customname</SID_NAME>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>stigid</SID_NAME>
+					<SID_DATA>VMW_vSphere_8-0_VCSA_Envoy_STIG</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>description</SID_NAME>
+					<SID_DATA>This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DOD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil.</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>filename</SID_NAME>
+					<SID_DATA>U_VMW_vSphere_8-0_VCSA_Envoy_STIG_V2R1_Manual-xccdf.xml</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>releaseinfo</SID_NAME>
+					<SID_DATA>Release: 1 Benchmark Date: 01 Aug 2024</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>title</SID_NAME>
+					<SID_DATA>VMware vSphere 8.0 vCenter Appliance Envoy Security Technical Implementation Guide</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>uuid</SID_NAME>
+					<SID_DATA>ae6e2b26-fddc-4915-81ca-c269e13b9f07</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>notice</SID_NAME>
+					<SID_DATA>terms-of-use</SID_DATA>
+				</SI_DATA>
+				<SI_DATA>
+					<SID_NAME>source</SID_NAME>
+					<SID_DATA>STIG.DOD.MIL</SID_DATA>
+				</SI_DATA>
+			</STIG_INFO>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259161</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000118-WSR-000068</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259161r960930_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCRP-80-000019</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter Envoy and Rhttpproxy service log files permissions must be set correctly.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Log data is essential in the investigation of events. If log data were to become compromised, then competent forensic analysis and discovery of the true source of potentially malicious system activity would be difficult, if not impossible, to achieve. In addition, access to log records provides information an attacker could potentially use to their advantage since each event record might contain communication ports, protocols, services, trust relationships, usernames, etc.
+
+The web server must protect the log data from unauthorized read, write, copy, etc. This can be done by the web server if the web server is also doing the logging function. The web server may also use an external log system. In either case, the logs must be protected from access by nonprivileged users.
+
+Satisfies: SRG-APP-000118-WSR-000068, SRG-APP-000119-WSR-000069, SRG-APP-000120-WSR-000070</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following commands:
+
+# find /var/log/vmware/rhttpproxy/ -xdev -type f -a '(' -perm -o+w -o -not -user rhttpproxy -o -not -group rhttpproxy ')' -exec ls -ld {} \;
+# find /var/log/vmware/envoy/ -xdev -type f -a '(' -perm -o+w -o -not -user envoy -o -not -group envoy ')' -exec ls -ld {} \;
+
+If any files are returned, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following commands for rhttpproxy log files:
+
+# chmod o-w &lt;file&gt;
+# chown rhttpproxy:rhttpproxy &lt;file&gt;
+
+or
+
+At the command prompt, run the following commands for envoy log files:
+
+# chmod o-w &lt;file&gt;
+# chown envoy:envoy &lt;file&gt;</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance Envoy Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5572</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>245fc294-1b80-44e1-8071-5300e129f40b</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000162</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000163</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000164</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259162</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000176-WSR-000096</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259162r961041_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCRP-80-000040</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter Envoy service private key file must be protected from unauthorized access.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Envoy's private key is used to prove the identity of the server to clients and securely exchange the shared secret key used to encrypt communications between the web server and clients.
+ 
+By gaining access to the private key, an attacker can pretend to be an authorized server and decrypt the Transport Layer Security (TLS) traffic between a client and the web server.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following command:
+
+# stat -c "%n permissions are %a, is owned by %U and group owned by %G" /etc/vmware-rhttpproxy/ssl/rui.key
+
+Expected result:
+
+/etc/vmware-rhttpproxy/ssl/rui.key permissions are 600, is owned by rhttpproxy and group owned by rhttpproxy
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following commands:
+
+# chmod 600 /etc/vmware-rhttpproxy/ssl/rui.key
+# chown rhttpproxy:rhttpproxy /etc/vmware-rhttpproxy/ssl/rui.key</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance Envoy Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5572</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>245fc294-1b80-44e1-8071-5300e129f40b</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000186</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259163</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000358-WSR-000063</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259163r961395_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCRP-80-000073</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter Rhttpproxy service log files must be sent to a central log server.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Writing events to a centralized management audit system offers many benefits to the enterprise over having dispersed logs. Centralized management of audit records and logs provides for efficiency in maintenance and management of records, enterprise analysis of events, and backup and archiving of event records enterprise-wide. The web server and related components are required to be capable of writing logs to centralized audit log servers.
+
+Satisfies: SRG-APP-000358-WSR-000063, SRG-APP-000125-WSR-000071</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>By default, there is a vmware-services-rhttpproxy.conf rsyslog configuration file that includes the service logs when syslog is configured on vCenter, but it must be verified.
+
+At the command prompt, run the following command:
+
+# cat /etc/vmware-syslog/vmware-services-rhttpproxy.conf
+
+Expected result:
+
+#rhttpproxy log
+input(type="imfile"
+      File="/var/log/vmware/rhttpproxy/rhttpproxy.log"
+      Tag="rhttpproxy-main"
+      Severity="info"
+      Facility="local0")
+#rhttpproxy init stdout
+input(type="imfile"
+      File="/var/log/vmware/rhttpproxy/rproxy_init.log.stdout"
+      Tag="rhttpproxy-stdout"
+      Severity="info"
+      Facility="local0")
+#rhttpproxy init stderr
+input(type="imfile"
+      File="/var/log/vmware/rhttpproxy/rproxy_init.log.stderr"
+      Tag="rhttpproxy-stderr"
+      Severity="info"
+      Facility="local0")
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Navigate to and open:
+
+/etc/vmware-syslog/vmware-services-rhttpproxy.conf
+
+Create the file if it does not exist.
+
+Set the contents of the file as follows:
+
+#rhttpproxy log
+input(type="imfile"
+      File="/var/log/vmware/rhttpproxy/rhttpproxy.log"
+      Tag="rhttpproxy-main"
+      Severity="info"
+      Facility="local0")
+#rhttpproxy init stdout
+input(type="imfile"
+      File="/var/log/vmware/rhttpproxy/rproxy_init.log.stdout"
+      Tag="rhttpproxy-stdout"
+      Severity="info"
+      Facility="local0")
+#rhttpproxy init stderr
+input(type="imfile"
+      File="/var/log/vmware/rhttpproxy/rproxy_init.log.stderr"
+      Tag="rhttpproxy-stderr"
+      Severity="info"
+      Facility="local0")</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance Envoy Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5572</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>245fc294-1b80-44e1-8071-5300e129f40b</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001348</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001851</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259164</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000358-WSR-000063</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259164r961395_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCRP-80-000097</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter Envoy service log files must be sent to a central log server.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Writing events to a centralized management audit system offers many benefits to the enterprise over having dispersed logs. Centralized management of audit records and logs provides for efficiency in maintenance and management of records, enterprise analysis of events, and backup and archiving of event records enterprise-wide. The web server and related components are required to be capable of writing logs to centralized audit log servers.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>By default, there is a vmware-services-envoy.conf rsyslog configuration file that includes the service logs when syslog is configured on vCenter, but it must be verified.
+
+At the command prompt, run the following command:
+
+# cat /etc/vmware-syslog/vmware-services-envoy.conf
+
+Expected result:
+
+#envoy service log
+input(type="imfile"
+      File="/var/log/vmware/envoy/envoy.log"
+      Tag="envoy-main"
+      Severity="info"
+      Facility="local0")
+#envoy access log
+input(type="imfile"
+      File="/var/log/vmware/envoy/envoy-access.log"
+      Tag="envoy-access"
+      Severity="info"
+      Facility="local0")
+#envoy init stdout
+input(type="imfile"
+      File="/var/log/vmware/envoy/envoy_init.log.stdout"
+      Tag="envoy-stdout"
+      Severity="info"
+      Facility="local0")
+#envoy init stderr
+input(type="imfile"
+      File="/var/log/vmware/envoy/envoy_init.log.stderr"
+      Tag="envoy-stderr"
+      Severity="info"
+      Facility="local0")
+
+If the output does not match the expected result, this is a finding.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Navigate to and open:
+
+/etc/vmware-syslog/vmware-services-envoy.conf
+
+Create the file if it does not exist.
+
+Set the contents of the file as follows:
+
+#envoy service log
+input(type="imfile"
+      File="/var/log/vmware/envoy/envoy.log"
+      Tag="envoy-main"
+      Severity="info"
+      Facility="local0")
+#envoy access log
+input(type="imfile"
+      File="/var/log/vmware/envoy/envoy-access.log"
+      Tag="envoy-access"
+      Severity="info"
+      Facility="local0")
+#envoy init stdout
+input(type="imfile"
+      File="/var/log/vmware/envoy/envoy_init.log.stdout"
+      Tag="envoy-stdout"
+      Severity="info"
+      Facility="local0")
+#envoy init stderr
+input(type="imfile"
+      File="/var/log/vmware/envoy/envoy_init.log.stderr"
+      Tag="envoy-stderr"
+      Severity="info"
+      Facility="local0")</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance Envoy Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5572</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>245fc294-1b80-44e1-8071-5300e129f40b</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-001851</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+			<VULN>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Num</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>V-259165</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Severity</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>medium</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Group_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SRG-APP-000001-WSR-000001</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>SV-259165r960735_rule</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Ver</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VCRP-80-000098</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Rule_Title</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>The vCenter Envoy service must set a limit on remote connections.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Vuln_Discuss</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Envoy client connections must be limited to preserve system resources and continue servicing connections without interruption. Without a limit set, the system would be vulnerable to a trivial denial-of-service attack where connections are created en masse and vCenter resources are entirely consumed.
+
+Envoy comes hard coded with a tested and supported value for "maxRemoteHttpsConnections" and "maxRemoteHttpConnections" that must be verified and maintained.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>IA_Controls</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>At the command prompt, run the following commands:
+
+# xmllint --xpath '/config/envoy/L4Filter/maxRemoteHttpsConnections/text()' /etc/vmware-rhttpproxy/config.xml
+# xmllint --xpath '/config/envoy/L4Filter/maxRemoteHttpConnections/text()' /etc/vmware-rhttpproxy/config.xml
+
+Example result:
+
+2048
+
+or
+
+XPath set is empty
+
+If the output is not "2048" or "XPath set it empty", this is a finding.
+
+Note: If "XPath set is empty" is returned the default values are in effect and is 2048.</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Fix_Text</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Navigate to and open:
+
+/etc/vmware-rhttpproxy/config.xml
+
+Locate the &lt;config&gt;/&lt;envoy&gt;/&lt;L4Filter&gt; block and configure it as follows:
+
+&lt;maxRemoteHttpsConnections&gt;2048&lt;/maxRemoteHttpsConnections&gt;
+&lt;maxRemoteHttpConnections&gt;2048&lt;/maxRemoteHttpConnections&gt;
+
+Restart the service for changes to take effect.
+
+# vmon-cli --restart rhttpproxy</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Positives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>False_Negatives</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Documentable</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>false</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigations</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Potential_Impact</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Third_Party_Tools</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Mitigation_Control</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Responsibility</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Security_Override_Guidance</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Check_Content_Ref</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>M</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Weight</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>10.0</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>Class</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>Unclass</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIGRef</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>VMware vSphere 8.0 vCenter Appliance Envoy Security Technical Implementation Guide :: Version 2, Release: 1 Benchmark Date: 01 Aug 2024</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>TargetKey</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>5572</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>STIG_UUID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>245fc294-1b80-44e1-8071-5300e129f40b</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>LEGACY_ID</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA></ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STIG_DATA>
+					<VULN_ATTRIBUTE>CCI_REF</VULN_ATTRIBUTE>
+					<ATTRIBUTE_DATA>CCI-000054</ATTRIBUTE_DATA>
+				</STIG_DATA>
+				<STATUS>Not_Reviewed</STATUS>
+				<FINDING_DETAILS></FINDING_DETAILS>
+				<COMMENTS></COMMENTS>
+				<SEVERITY_OVERRIDE></SEVERITY_OVERRIDE>
+				<SEVERITY_JUSTIFICATION></SEVERITY_JUSTIFICATION>
+			</VULN>
+		</iSTIG>
+	</STIGS>
+</CHECKLIST>
