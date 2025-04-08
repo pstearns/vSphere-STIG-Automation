@@ -1,2 +1,0 @@
-var_pamd_systemauth_file: '/etc/applmgmt/appliance/system-auth'
-var_pamd_systempassword_file: '/etc/applmgmt/appliance/system-password'

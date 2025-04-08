@@ -1,4 +1,0 @@
----
-# tasks file for photon3
-- include: photon.yml
-  tags: photon
